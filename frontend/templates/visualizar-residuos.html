@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visualizar Resíduos Cadastrados</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-image: linear-gradient(to bottom left, #9613c1, #d37af0, #753789);
+    }
+
+    .container {
+      background-color: white;
+      background-opacity: 0.75;
+      border-radius: 12px;
+      padding: 2rem;
+      width: 30rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .container h1 {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #4A4A4A;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .container img {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 1rem;
+    }
+
+    .container table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 2rem;
+    }
+
+    .container table th, .container table td {
+      border: 1px solid #ddd;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .container table th {
+      background-color: #9613c1;
+      color: white;
+    }
+
+    .container .message {
+      text-align: center;
+      margin: 1rem 0;
+      font-weight: bold;
+      color: green;
+    }
+
+    .container .btn-back {
+      background-color: #4CAF50;
+      color: white;
+      font-weight: bold;
+      padding: 0.75rem;
+      border-radius: 8px;
+      width: 100%;
+      border: none;
+      cursor: pointer;
+    }
+
+    .container .btn-back:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <img src="https://cdn.shopify.com/s/files/1/0650/6561/5497/files/reciclar.png?v=1727622972" alt="Logo Reciclagem" class="rounded-full mb-4">
+    <h1>Resíduos Cadastrados</h1>
+
+    <div class="message" id="message"></div>
+
+    <table id="residueTable">
+      <thead>
+        <tr>
+          <th>Nome do Resíduo</th>
+          <th>Tipo</th>
+          <th>Peso</th>
+          <th>Unidade</th>
+          <th>Local de Descarte</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Resíduos cadastrados serão listados aqui -->
+      </tbody>
+    </table>
+
+    <button class="btn-back" onclick="window.location.href='index.html'">Voltar</button>
+  </div>
+
+  <script>
+    // Função para buscar os resíduos cadastrados
+    async function fetchResiduos() {
+      const response = await fetch('http://localhost:5000/api/residuos/cadastrar', { 
+        method: 'GET'
+      });
+
+      const data = await response.json();
+      const tableBody = document.querySelector('#residueTable tbody');
+      tableBody.innerHTML = ''; // Limpar a tabela
+
+      data.residuos.forEach(residuo => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${residuo.nome}</td>
+          <td>${residuo.tipo}</td>
+          <td>${residuo.peso}</td>
+          <td>${residuo.unidade}</td>
+          <td>${residuo.local_descart}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    // Mostrar a mensagem de sucesso após salvar o resíduo
+    const messageElement = document.getElementById('message');
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('success') === 'true') {
+      messageElement.textContent = 'Resíduo cadastrado com sucesso!';
+    }
+
+    // Chama a função para buscar os resíduos cadastrados ao carregar a página
+    fetchResiduos();
+  </script>
+
+</body>
+</html>

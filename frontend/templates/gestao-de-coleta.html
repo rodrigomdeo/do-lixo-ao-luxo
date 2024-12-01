@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestão de Coleta</title>
+  <style>
+    /* Estilos para a interface de cadastro */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-image: linear-gradient(to bottom left, #9613c1, #d37af0, #753789);
+    }
+
+    .container {
+      background-color: white;
+      background-opacity: 0.75;
+      border-radius: 12px;
+      padding: 2rem;
+      width: 30rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .container h1 {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #4A4A4A;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .container img {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 1rem;
+    }
+
+    .container label {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #4A4A4A;
+    }
+
+    .container input, .container select {
+      width: 100%;
+      padding: 0.75rem;
+      margin: 0.5rem 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .container button {
+      width: 48%;
+      padding: 0.75rem;
+      margin-top: 1rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .container .btn-back {
+      background-color: #4CAF50;
+      color: white;
+      font-weight: bold;
+    }
+
+    .container .btn-back:hover {
+      background-color: #45a049;
+    }
+
+    .container .btn-save {
+      background-color: #9613c1;
+      color: white;
+      font-weight: bold;
+    }
+
+    .container .btn-save:hover {
+      background-color: #7a0f9a;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <img src="https://cdn.shopify.com/s/files/1/0650/6561/5497/files/reciclar.png?v=1727622972" alt="Logo Reciclagem" class="rounded-full mb-4">
+    <h1>Gestão de Coleta</h1>
+
+    <form id="residueForm">
+      <div class="mb-4">
+        <label for="residueName">Nome do Resíduo:</label>
+        <input type="text" id="residueName" placeholder="Ex: Papelão" required>
+      </div>
+
+      <div class="mb-4">
+        <label for="residueType">Tipo:</label>
+        <select id="residueType" required>
+          <option value="">Selecione o tipo de resíduo</option>
+          <option value="organico">Orgânico</option>
+          <option value="reciclavel">Reciclável</option>
+        </select>
+      </div>
+
+      <div class="mb-4 flex gap-4">
+        <div class="w-1/2">
+          <label for="weight">Peso:</label>
+          <input type="number" id="weight" placeholder="Ex: 5" required>
+        </div>
+        <div class="w-1/2">
+          <label for="unit">Unidade:</label>
+          <select id="unit" required>
+            <option value="">Selecione a unidade</option>
+            <option value="kg">Kg</option>
+            <option value="ton">Tonelada</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label for="discardLocation">Local de Descarte:</label>
+        <input type="text" id="discardLocation" placeholder="Ex: Centro de Reciclagem XYZ" required>
+      </div>
+
+      <div class="flex justify-between">
+        <button type="button" class="btn-back" onclick="window.location.href='index.html'">
+          Voltar
+        </button>
+        <button type="submit" class="btn-save">
+          Salvar
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('residueForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+
+      const residueName = document.getElementById('residueName').value;
+      const residueType = document.getElementById('residueType').value;
+      const weight = document.getElementById('weight').value;
+      const unit = document.getElementById('unit').value;
+      const discardLocation = document.getElementById('discardLocation').value;
+
+      const response = await fetch('http://localhost:5000/api/residuos/cadastrar', {  
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          nome: residueName,
+          tipo: residueType,
+          peso: weight,
+          unidade: unit,
+          local_descart: discardLocation
+        })
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        alert(data.message); // Exibe uma mensagem de sucesso
+        window.location.href = 'visualizar-residuo.html';  // Redireciona para a página de visualização
+      } else {
+        alert('Erro ao salvar resíduo');
+      }
+    });
+  </script>
+
+</body>
+</html>

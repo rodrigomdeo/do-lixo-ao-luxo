@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configurações de Perfil</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-image: linear-gradient(to bottom left, #9613c1, #d37af0, #753789);
+    }
+
+    .container {
+      background-color: white;
+      border-radius: 15px;
+      padding: 3rem;
+      width: 36rem;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .container span {
+      font-size: 1.75rem;
+      font-weight: bold;
+      color: #4A4A4A;
+      margin-bottom: 1.5rem;
+    }
+
+    .container .text-lg {
+      font-size: 1.1rem;
+      font-weight: medium;
+      color: #4A4A4A;
+    }
+
+    .container .text-blue-500 {
+      color: #007bff;
+    }
+
+    .container .text-blue-500:hover {
+      color: #0056b3;
+    }
+
+    .container img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin-bottom: 2rem;
+      border: 2px solid #9613c1;
+    }
+
+    .container button {
+      width: 48%;
+      padding: 1rem;
+      margin-top: 1.5rem;
+      border-radius: 8px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .container .btn-back {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .container .btn-back:hover {
+      background-color: #45a049;
+    }
+
+    .container .btn-save {
+      background-color: #9613c1;
+      color: white;
+    }
+
+    .container .btn-save:hover {
+      background-color: #7a0f9a;
+    }
+
+    .buttons-container {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: 2rem;
+    }
+
+    .container .btn-save:focus, .container .btn-back:focus {
+      outline: none;
+    }
+
+    .container .hidden {
+      display: none;
+    }
+
+    .buttons-container button {
+      width: 48%;
+      padding: 1rem;
+      margin: 1rem 0;
+      font-size: 1rem;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <span class="text-4xl font-bold mb-6">Configuração de Perfil</span>
+
+    <!-- Foto de Perfil -->
+    <div class="flex flex-col items-center w-full mb-6">
+      <img src="https://cdn.shopify.com/s/files/1/0650/6561/5497/files/552721.png?v=1727626642" alt="Foto de Perfil" id="profileImage" class="w-40 h-40 rounded-full mb-4">
+      <input type="file" id="fileInput" class="hidden" accept="image/*" onchange="changeProfilePicture(event)">
+      <button class="text-lg text-blue-500 hover:text-blue-700" onclick="document.getElementById('fileInput').click();">Trocar foto de perfil</button>
+    </div>
+
+    <!-- Dados do Perfil -->
+    <span class="block text-lg font-medium text-gray-700 mb-6">Login: usuario@example.com</span>
+    <span class="block text-lg font-medium text-gray-700 mb-6">Senha: ••••••••</span>
+
+    <!-- Link para Redefinir a Senha -->
+    <a href="#" class="text-lg text-blue-500 hover:text-blue-700 mb-6">Redefinir senha</a>
+
+    <!-- Botões -->
+    <div class="buttons-container">
+      <!-- Botão Voltar -->
+      <button class="btn-back" onclick="window.location.href='index.html'">Voltar</button>
+
+      <!-- Botão Salvar -->
+      <button class="btn-save" id="save-btn">Salvar Alterações</button>
+    </div>
+  </div>
+
+  <script>
+    // Função que altera a exibição dos botões
+    document.getElementById('save-btn').addEventListener('click', function() {
+      alert("Alterações salvas com sucesso!");
+    });
+
+    // Função que altera a foto de perfil
+    function changeProfilePicture(event) {
+      const file = event.target.files[0]; // Pega o primeiro arquivo selecionado
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById('profileImage').src = e.target.result; // Altera a foto
+        };
+        reader.readAsDataURL(file); // Lê o arquivo e converte para URL
+      }
+    }
+  </script>
+
+</body>
+</html>

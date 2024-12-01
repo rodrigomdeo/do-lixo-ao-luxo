@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coleta Agendada</title>
+  <style>
+   body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-image: linear-gradient(to bottom left, #9613c1, #d37af0, #753789);
+    }
+
+    .container {
+      background-color: white;
+      background-opacity: 0.75;
+      border-radius: 12px;
+      padding: 2rem;
+      width: 30rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .container h1 {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #4A4A4A;
+      margin-bottom: 1.5rem;
+    }
+
+    .container img {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 1rem;
+    }
+
+    .container label {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #4A4A4A;
+    }
+
+    .container input, .container select {
+      width: 100%;
+      padding: 0.75rem;
+      margin: 0.5rem 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .container button {
+      width: 48%;
+      padding: 0.75rem;
+      margin-top: 1rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .container .btn-back {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .container .btn-back:hover {
+      background-color: #45a049;
+    }
+
+    .container .btn-schedule {
+      background-color: #9613c1;
+      color: white;
+    }
+
+    .container .btn-schedule:hover {
+      background-color: #7a0f9a;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <img src="https://cdn.shopify.com/s/files/1/0650/6561/5497/files/reciclar.png?v=1727622972" alt="Logo Reciclagem" class="rounded-full mb-4">
+    <h1>Coleta Agendada com Sucesso!</h1>
+
+    <div class="info">
+      <h2 class="text-xl font-semibold text-gray-800">Detalhes da Coleta</h2>
+      
+      <!-- Exibição dinâmica dos dados armazenados -->
+      <p><strong>Data de Coleta:</strong> <span id="dataColeta"></span></p>
+      <p><strong>Hora de Coleta:</strong> <span id="horaColeta"></span></p>
+      <p><strong>Endereço:</strong> <span id="enderecoColeta"></span></p>
+    </div>
+
+    <button class="btn-back" onclick="window.location.href='index.html'">Voltar ao Menu</button>
+  </div>
+
+  <script>
+    // Recupera os dados do localStorage e preenche na página
+    document.getElementById('dataColeta').textContent = localStorage.getItem('collectionDate');
+    document.getElementById('horaColeta').textContent = localStorage.getItem('collectionTime');
+    document.getElementById('enderecoColeta').textContent = localStorage.getItem('address');
+  </script>
+
+</body>
+</html>

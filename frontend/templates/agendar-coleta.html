@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agendar Coleta</title>
+  <style>
+   body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-image: linear-gradient(to bottom left, #9613c1, #d37af0, #753789);
+    }
+
+    .container {
+      background-color: white;
+      background-opacity: 0.75;
+      border-radius: 12px;
+      padding: 2rem;
+      width: 30rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .container h1 {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #4A4A4A;
+      margin-bottom: 1.5rem;
+    }
+
+    .container img {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 1rem;
+    }
+
+    .container label {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #4A4A4A;
+    }
+
+    .container input, .container select {
+      width: 100%;
+      padding: 0.75rem;
+      margin: 0.5rem 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .container button {
+      width: 48%;
+      padding: 0.75rem;
+      margin-top: 1rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .container .btn-back {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .container .btn-back:hover {
+      background-color: #45a049;
+    }
+
+    .container .btn-schedule {
+      background-color: #9613c1;
+      color: white;
+    }
+
+    .container .btn-schedule:hover {
+      background-color: #7a0f9a;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <img src="https://cdn.shopify.com/s/files/1/0650/6561/5497/files/reciclar.png?v=1727622972" alt="Logo Reciclagem" class="rounded-full mb-4">
+    <h1>Agendar Coleta</h1>
+
+    <form class="w-full" id="formColeta">
+      <div class="mb-4">
+        <label for="collectionDate">Data de Coleta:</label>
+        <input type="date" id="collectionDate" placeholder="Selecione a data">
+      </div>
+
+      <div class="mb-4">
+        <label for="collectionTime">Hora de Coleta:</label>
+        <input type="time" id="collectionTime" placeholder="Selecione a hora">
+      </div>
+
+      <div class="mb-4">
+        <label for="address">Endereço:</label>
+        <input type="text" id="address" placeholder="Ex: Rua dos Pinheiros, 123">
+      </div>
+
+      <div class="flex justify-between">
+        <!-- Botão de Voltar -->
+        <button type="button" class="btn-back" onclick="window.location.href='index.html'">Voltar</button>
+        <!-- Botão de Agendar -->
+        <button type="submit" class="btn-schedule">Agendar</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    // Função para salvar os dados no localStorage
+    document.getElementById('formColeta').addEventListener('submit', function(event) {
+      event.preventDefault(); // Impede o envio padrão do formulário
+
+      // Pega os dados inseridos no formulário
+      const collectionDate = document.getElementById('collectionDate').value;
+      const collectionTime = document.getElementById('collectionTime').value;
+      const address = document.getElementById('address').value;
+
+      // Armazena os dados no localStorage
+      localStorage.setItem('collectionDate', collectionDate);
+      localStorage.setItem('collectionTime', collectionTime);
+      localStorage.setItem('address', address);
+
+      // Redireciona para a página de Coleta Agendada
+      window.location.href = 'coleta-agendada.html'; // Página de Coleta Agendada
+    });
+  </script>
+
+</body>
+</html>

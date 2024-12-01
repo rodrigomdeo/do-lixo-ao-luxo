@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visualizar Relatórios</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-image: linear-gradient(to bottom left, #9613c1, #d37af0, #753789);
+    }
+
+    .container {
+      background-color: white;
+      background-opacity: 0.75;
+      border-radius: 12px;
+      padding: 2rem;
+      width: 45rem; /* Ajustado largura */
+      max-height: 95vh; /* Altura ajustada */
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      overflow-y: auto;
+    }
+
+    .container h1 {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #4A4A4A;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .container p {
+      font-size: 1rem;
+      color: #6B6B6B;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .container select, .container input, .container button {
+      width: 100%;
+      padding: 0.75rem;
+      margin: 0.5rem 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .container button {
+      background-color: #9613c1;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .container button:hover {
+      background-color: #7a0f9a;
+    }
+
+    .visualization {
+      background-color: #f7f7f7;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .visualization p {
+      color: #888;
+    }
+
+    .table-container {
+      margin-top: 2rem;
+      padding: 1rem;
+      background-color: #f7f7f7;
+      border-radius: 8px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: center;
+    }
+
+    th, td {
+      padding: 1rem;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    .logo-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .logo-container img {
+      width: 100px;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="logo-container">
+      <img src="https://cdn.shopify.com/s/files/1/0650/6561/5497/files/reciclar.png?v=1727622972" alt="Logo Gerenciamento de Resíduos" class="rounded-full w-24 h-24 mb-4">
+    </div>
+    <h1>Visualizar Relatórios</h1>
+    <p>Visão geral dos últimos relatórios.</p>
+
+    <!-- Gráfico de Coleta de Resíduos -->
+    <div class="visualization">
+      <h2 class="text-xl font-semibold text-gray-800">Gráfico de Coleta de Resíduos</h2>
+      <div class="mt-2 p-4 bg-gray-100 rounded-lg">
+        <canvas id="graficoColeta"></canvas>
+      </div>
+    </div>
+
+    <!-- Tabela de Coleta de Resíduos -->
+    <div class="table-container">
+      <h2 class="text-xl font-semibold text-gray-800">Tabela de Coleta de Resíduos</h2>
+      <table class="w-full text-sm text-gray-600">
+        <thead>
+          <tr>
+            <th class="px-4 py-2">Tipo de Resíduo</th>
+            <th class="px-4 py-2">Quantidade (kg)</th>
+          </tr>
+        </thead>
+        <tbody id="tabelaColeta">
+          <!-- As linhas da tabela serão preenchidas dinamicamente -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Botão Voltar -->
+    <div class="mt-4">
+      <button onclick="window.location.href='index.html'">Voltar</button>
+    </div>
+  </div>
+
+  <script>
+    // Função para buscar os resíduos cadastrados e gerar gráficos
+    async function fetchResiduos() {
+      const response = await fetch('http://localhost:5000/api/residuos/listar');
+      const data = await response.json();
+      const residuos = data.residuos;
+
+      // Para o gráfico de coleta de resíduos
+      const tipos = [];
+      const quantidades = [];
+      residuos.forEach(residuo => {
+        if (!tipos.includes(residuo.tipo)) {
+          tipos.push(residuo.tipo);
+          quantidades.push(Number(residuo.peso));
+        } else {
+          const index = tipos.indexOf(residuo.tipo);
+          quantidades[index] += Number(residuo.peso);
+        }
+      });
+
+      // Gráfico de Coleta de Resíduos
+      const ctxColeta = document.getElementById('graficoColeta').getContext('2d');
+      new Chart(ctxColeta, {
+        type: 'bar',
+        data: {
+          labels: tipos,
+          datasets: [{
+            label: 'Quantidade de Resíduos (kg)',
+            data: quantidades,
+            backgroundColor: ['#42a5f5', '#ff9800', '#66bb6a', '#ef5350'],
+            borderColor: ['#1e88e5', '#f57c00', '#43a047', '#e53935'],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'top',
+            },
+            title: {
+              display: true,
+              text: 'Coleta de Resíduos por Tipo'
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+
+      // Preencher a tabela de coleta de resíduos
+      const tabelaColeta = document.getElementById('tabelaColeta');
+      tipos.forEach((tipo, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td class="px-4 py-2">${tipo}</td>
+          <td class="px-4 py-2">${quantidades[index]}</td>
+        `;
+        tabelaColeta.appendChild(row);
+      });
+    }
+
+    // Carregar os dados ao carregar a página
+    window.onload = fetchResiduos;
+  </script>
+
+</body>
+</html>

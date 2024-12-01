@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerar Relatório</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-image: linear-gradient(to bottom left, #9613c1, #d37af0, #753789);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+    }
+
+    .container {
+      background-color: white;
+      background-opacity: 0.75;
+      border-radius: 12px;
+      padding: 1.5rem;
+      width: 40rem;  /* Tamanho ajustado */
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      overflow-y: auto;  /* Adiciona rolagem apenas se necessário */
+    }
+
+    .container h1 {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #4A4A4A;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .container p {
+      font-size: 1rem;
+      color: #6B6B6B;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .container select, .container input, .container button {
+      width: 100%;
+      padding: 0.75rem;
+      margin: 0.75rem 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .container button {
+      background-color: #9613c1;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .container button:hover {
+      background-color: #7a0f9a;
+    }
+
+    .radio-group {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .visualization {
+      background-color: #f7f7f7;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .visualization p {
+      color: #888;
+    }
+
+    .logo-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .logo-container img {
+      width: 100px; /* Ajuste no tamanho da logo */
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="logo-container">
+      <img src="https://cdn.shopify.com/s/files/1/0650/6561/5497/files/reciclar.png?v=1727622972" alt="Logo Reciclagem" class="rounded-full">
+    </div>
+    <h1>Gerar Relatório</h1>
+    <p>Selecione o tipo de relatório e o formato de arquivo desejado para exportação.</p>
+
+    <div>
+      <label for="reportTypeSelect">Tipo de Relatório</label>
+      <select id="reportTypeSelect">
+        <option value="">Selecione o tipo de relatório</option>
+        <option value="annual">Relatório Anual</option>
+        <option value="monthly">Relatório Mensal</option>
+      </select>
+    </div>
+
+    <div class="hidden" id="annualReportContent">
+      <label for="yearSelect">Selecione o Ano</label>
+      <select id="yearSelect">
+        <option value="2023">2024</option>
+        <option value="2022">2023</option>
+        <option value="2021">2022</option>
+        <option value="2021">2021</option>
+      </select>
+    </div>
+
+    <div class="hidden" id="monthlyReportContent">
+      <label for="monthSelect">Selecione o Mês</label>
+      <select id="monthSelect">
+        <option value="january">Janeiro</option>
+        <option value="february">Fevereiro</option>
+        <option value="march">Março</option>
+        <option value="april">Abril</option>
+        <option value="may">Maio</option>
+        <option value="january">Junho</option>
+        <option value="february">Julho</option>
+        <option value="march">Agosto</option>
+        <option value="april">Setembro</option>
+        <option value="may">Outubro</option>
+        <option value="march">Novembro</option>
+        <option value="april">Dezembro</option>
+        
+      </select>
+    </div>
+
+    <div>
+      <span class="text-lg font-semibold">Tipo de Arquivo:</span>
+      <div class="radio-group">
+        <label>
+          <input type="radio" name="fileType" value="excel"> Excel
+        </label>
+        <label>
+          <input type="radio" name="fileType" value="pdf"> PDF
+        </label>
+      </div>
+    </div>
+
+    <button onclick="generateReport()">Exportar</button>
+
+    <!-- Filtros avançados -->
+    <div>
+      <h2>Filtros Avançados</h2>
+      <div class="grid-container">
+        <div>
+          <label for="startDate">Data Inicial</label>
+          <input type="date" id="startDate">
+        </div>
+        <div>
+          <label for="endDate">Data Final</label>
+          <input type="date" id="endDate">
+        </div>
+      </div>
+    </div>
+
+    <!-- Visualização de Dados -->
+    <div class="visualization">
+      <h2>Visualização de Dados</h2>
+      <p>Os dados do relatório serão exibidos aqui.</p>
+      <div id="reportVisualization">
+        <p>Gráfico ou Tabela será exibido aqui...</p>
+      </div>
+    </div>
+
+    <!-- Botão Voltar -->
+    <div>
+      <button onclick="window.history.back()">Voltar</button>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('reportTypeSelect').addEventListener('change', function() {
+      const annualContent = document.getElementById('annualReportContent');
+      const monthlyContent = document.getElementById('monthlyReportContent');
+
+      if (this.value === 'annual') {
+        annualContent.classList.remove('hidden');
+        monthlyContent.classList.add('hidden');
+      } else if (this.value === 'monthly') {
+        monthlyContent.classList.remove('hidden');
+        annualContent.classList.add('hidden');
+      } else {
+        annualContent.classList.add('hidden');
+        monthlyContent.classList.add('hidden');
+      }
+    });
+
+    function generateReport() {
+      const reportType = document.getElementById('reportTypeSelect').value;
+      const fileType = document.querySelector('input[name="fileType"]:checked')?.value;
+      const startDate = document.getElementById('startDate').value;
+      const endDate = document.getElementById('endDate').value;
+      const year = document.getElementById('yearSelect')?.value;
+      const month = document.getElementById('monthSelect')?.value;
+
+      if (!reportType || !fileType) {
+        alert("Por favor, selecione todos os campos obrigatórios.");
+        return;
+      }
+
+      alert(`Relatório ${reportType} exportado como ${fileType} entre ${startDate} e ${endDate}.`);
+    }
+  </script>
+
+</body>
+</html>

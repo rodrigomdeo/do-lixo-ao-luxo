@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Gerenciamento</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    
+    .bg-gradient-custom {
+      background-image: linear-gradient(to bottom left, #9613c1, #d37af0, #753789);
+      min-height: 100vh;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .flex {
+      display: flex;
+    }
+
+    .sidebar {
+      width: 250px;
+      background-color: white;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      height: 100%;
+      padding: 20px;
+    }
+
+    .menu-item {
+      padding: 10px;
+      display: block;
+      text-decoration: none;
+      color: #4a4a4a;
+    }
+
+    .menu-item:hover {
+      color: #9613c1;
+    }
+
+    .submenu {
+      margin-left: 1.5rem;
+      font-size: 0.9rem;
+      display: block;
+    }
+
+    .submenu-item {
+      display: block;
+      margin: 0.5rem 0;
+      color: #6b6b6b;
+      font-weight: normal;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .submenu-item:hover {
+      color: #9613c1;
+    }
+
+    .content {
+      margin-left: 250px;
+      padding: 20px;
+      flex: 1;
+      background-color: #f9f9f9;
+    }
+
+    .dashboard-card {
+      background-color: white;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .dashboard-title {
+      text-align: center;
+      font-size: 1.5rem;
+      color: #9613c1;
+    }
+
+    .canvas-container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      height: 350px;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body class="bg-gradient-custom">
+
+<div class="flex">
+  
+  <div class="sidebar">
+    <div class="mb-4">
+      <img src="https://cdn.shopify.com/s/files/1/0650/6561/5497/files/reciclar.png?v=1727622972" alt="Logo Reciclagem" class="rounded-full" style="width: 120px; height: 120px;">
+    </div>
+    <a href="#" class="menu-item">📑 Relatórios</a>
+    <div class="submenu">
+      <a href="gerar-relatorio.html" class="submenu-item">Gerar Novo Relatório</a>
+      <a href="visualizar-relatorio.html" class="submenu-item">Visualizar Relatórios</a>
+    </div>
+
+    <a href="#" class="menu-item">🚚 Gestão de Coleta</a>
+    <div class="submenu">
+      <a href="gestao-de-coleta.html" class="submenu-item">Cadastrar Resíduos</a>
+      <a href="agendar-coleta.html" class="submenu-item">Agendar Coletas</a>
+    </div>
+
+    <a href="feedback.html" class="menu-item">💬 Feedback</a>
+    <a href="configuracoes.html" class="menu-item">⚙️ Configurações</a>
+    <a href="login.html" class="menu-item" onclick="logout()">🚪 Sair</a>
+  </div>
+
+
+  <div class="content">
+    <div class="dashboard-card">
+      <h2 class="dashboard-title">Dashboard</h2>
+      
+      <div class="grid-container">
+       
+        <div class="canvas-container">
+          <h3 class="text-custom-purple">Tipos de Resíduos</h3>
+          <canvas id="graficoPizza"></canvas>
+        </div>
+
+       
+        <div class="canvas-container">
+          <h3 class="text-custom-purple">Geração Mensal</h3>
+          <canvas id="graficoLinha"></canvas>
+        </div>
+
+      
+        <div class="canvas-container">
+          <h3 class="text-custom-purple">Comparação de Resíduos</h3>
+          <canvas id="graficoBarras"></canvas>
+        </div>
+
+       
+        <div class="canvas-container">
+          <h3 class="text-custom-purple">Progresso de Coleta</h3>
+          <canvas id="graficoArea"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  
+  function logout() {
+    localStorage.removeItem('isAuthenticated');
+    window.location.href = 'login.html';
+  }
+
+  
+  async function fetchResiduos() {
+    const response = await fetch('http://localhost:5000/api/residuos/listar');
+    const data = await response.json();
+    const residuos = data.residuos;
+
+    const tipos = [];
+    const quantidades = [];
+    residuos.forEach(residuo => {
+      if (!tipos.includes(residuo.tipo)) {
+        tipos.push(residuo.tipo);
+        quantidades.push(Number(residuo.peso));
+      } else {
+        const index = tipos.indexOf(residuo.tipo);
+        quantidades[index] += Number(residuo.peso); 
+      }
+    });
+
+  
+    const ctxPizza = document.getElementById('graficoPizza').getContext('2d');
+    new Chart(ctxPizza, {
+      type: 'pie',
+      data: {
+        labels: tipos,
+        datasets: [{
+          data: quantidades,
+          backgroundColor: ['#ff6384', '#36a2eb', '#ffce56', '#4caf50', '#ff9800'],
+        }]
+      }
+    });
+
+   
+    const meses = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai'];
+    const geracaoMensal = [12, 19, 3, 5, 2]; 
+    const ctxLinha = document.getElementById('graficoLinha').getContext('2d');
+    new Chart(ctxLinha, {
+      type: 'line',
+      data: {
+        labels: meses,
+        datasets: [{
+          data: geracaoMensal,
+          borderColor: '#42a5f5',
+          backgroundColor: 'rgba(66, 165, 245, 0.2)',
+          fill: true
+        }]
+      }
+    });
+
+   
+    const tiposBarras = [];
+    const quantidadesBarras = [];
+    residuos.forEach(residuo => {
+      if (!tiposBarras.includes(residuo.nome)) {
+        tiposBarras.push(residuo.nome);
+        quantidadesBarras.push(1); 
+      } else {
+        const index = tiposBarras.indexOf(residuo.nome);
+        quantidadesBarras[index] += 1;
+      }
+    });
+
+    const ctxBarras = document.getElementById('graficoBarras').getContext('2d');
+    new Chart(ctxBarras, {
+      type: 'bar',
+      data: {
+        labels: tiposBarras,
+        datasets: [{
+          data: quantidadesBarras,
+          backgroundColor: '#36a2eb',
+        }]
+      }
+    });
+
+    
+    const progressoMensal = [500, 800, 600, 1000, 1200]; 
+    const ctxArea = document.getElementById('graficoArea').getContext('2d');
+    new Chart(ctxArea, {
+      type: 'line',
+      data: {
+        labels: meses,
+        datasets: [{
+          data: progressoMensal,
+          borderColor: '#4caf50',
+          backgroundColor: 'rgba(76, 175, 80, 0.2)',
+          fill: true
+        }]
+      }
+    });
+  }
+
+  // Chama a função para buscar os resíduos cadastrados ao carregar a página
+  fetchResiduos();
+</script>
+
+</body>
+</html>

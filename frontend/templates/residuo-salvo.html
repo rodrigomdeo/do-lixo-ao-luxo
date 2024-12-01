@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resíduo Salvo com Sucesso</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-image: linear-gradient(to bottom left, #9613c1, #d37af0, #753789);
+    }
+
+    .container {
+      background-color: white;
+      background-opacity: 0.75;
+      border-radius: 12px;
+      padding: 2rem;
+      width: 30rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .container h1 {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #4A4A4A;
+      margin-bottom: 1rem;
+    }
+
+    .container p {
+      font-size: 1rem;
+      color: #6B6B6B;
+      margin-bottom: 2rem;
+    }
+
+    .container button {
+      padding: 0.75rem;
+      background-color: #9613c1;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .container button:hover {
+      background-color: #7a0f9a;
+    }
+
+    .logo-container img {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="logo-container">
+      <img src="https://cdn.shopify.com/s/files/1/0650/6561/5497/files/reciclar.png?v=1727622972" alt="Logo Reciclagem" class="rounded-full">
+    </div>
+    <h1>Resíduo Salvo com Sucesso!</h1>
+    <p>Seu resíduo foi salvo com sucesso! Você pode verificar seus resíduos salvos na página de histórico.</p>
+    <button type="button" onclick="window.location.href='historico.html'">Ir para Histórico</button> <!-- Link para a página de Histórico -->
+  </div>
+
+</body>
+</html>
