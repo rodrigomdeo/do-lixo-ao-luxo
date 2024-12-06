@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Agendar Coleta</title>
   <style>
-   body {
+    body {
       margin: 0;
       font-family: Arial, sans-serif;
       display: flex;
@@ -104,30 +104,24 @@
       </div>
 
       <div class="flex justify-between">
-        <!-- Botão de Voltar -->
         <button type="button" class="btn-back" onclick="window.location.href='index.html'">Voltar</button>
-        <!-- Botão de Agendar -->
         <button type="submit" class="btn-schedule">Agendar</button>
       </div>
     </form>
   </div>
 
   <script>
-  
     document.getElementById('formColeta').addEventListener('submit', function(event) {
       event.preventDefault();
 
-     
       const collectionDate = document.getElementById('collectionDate').value;
       const collectionTime = document.getElementById('collectionTime').value;
       const address = document.getElementById('address').value;
 
-     
       localStorage.setItem('collectionDate', collectionDate);
       localStorage.setItem('collectionTime', collectionTime);
       localStorage.setItem('address', address);
 
-      
       window.location.href = 'coleta-agendada.html'; 
     });
   </script>
