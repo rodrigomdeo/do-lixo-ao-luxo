@@ -21,8 +21,8 @@
       background-opacity: 0.75;
       border-radius: 12px;
       padding: 2rem;
-      width: 45rem; /* Ajustado largura */
-      max-height: 95vh; /* Altura ajustada */
+      width: 45rem;
+      max-height: 95vh;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       overflow-y: auto;
     }
@@ -117,7 +117,6 @@
     <h1>Visualizar Relatórios</h1>
     <p>Visão geral dos últimos relatórios.</p>
 
-    <!-- Gráfico de Coleta de Resíduos -->
     <div class="visualization">
       <h2 class="text-xl font-semibold text-gray-800">Gráfico de Coleta de Resíduos</h2>
       <div class="mt-2 p-4 bg-gray-100 rounded-lg">
@@ -125,7 +124,6 @@
       </div>
     </div>
 
-    <!-- Tabela de Coleta de Resíduos -->
     <div class="table-container">
       <h2 class="text-xl font-semibold text-gray-800">Tabela de Coleta de Resíduos</h2>
       <table class="w-full text-sm text-gray-600">
@@ -136,25 +134,21 @@
           </tr>
         </thead>
         <tbody id="tabelaColeta">
-          <!-- As linhas da tabela serão preenchidas dinamicamente -->
         </tbody>
       </table>
     </div>
 
-    <!-- Botão Voltar -->
     <div class="mt-4">
       <button onclick="window.location.href='index.html'">Voltar</button>
     </div>
   </div>
 
   <script>
-    // Função para buscar os resíduos cadastrados e gerar gráficos
     async function fetchResiduos() {
       const response = await fetch('http://localhost:5000/api/residuos/listar');
       const data = await response.json();
       const residuos = data.residuos;
 
-      // Para o gráfico de coleta de resíduos
       const tipos = [];
       const quantidades = [];
       residuos.forEach(residuo => {
@@ -167,7 +161,6 @@
         }
       });
 
-      // Gráfico de Coleta de Resíduos
       const ctxColeta = document.getElementById('graficoColeta').getContext('2d');
       new Chart(ctxColeta, {
         type: 'bar',
@@ -200,7 +193,6 @@
         }
       });
 
-      // Preencher a tabela de coleta de resíduos
       const tabelaColeta = document.getElementById('tabelaColeta');
       tipos.forEach((tipo, index) => {
         const row = document.createElement('tr');
@@ -212,7 +204,6 @@
       });
     }
 
-    // Carregar os dados ao carregar a página
     window.onload = fetchResiduos;
   </script>
 
