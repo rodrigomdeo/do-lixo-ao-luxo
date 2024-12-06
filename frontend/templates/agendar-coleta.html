@@ -113,22 +113,22 @@
   </div>
 
   <script>
-    // Função para salvar os dados no localStorage
+  
     document.getElementById('formColeta').addEventListener('submit', function(event) {
-      event.preventDefault(); // Impede o envio padrão do formulário
+      event.preventDefault();
 
-      // Pega os dados inseridos no formulário
+     
       const collectionDate = document.getElementById('collectionDate').value;
       const collectionTime = document.getElementById('collectionTime').value;
       const address = document.getElementById('address').value;
 
-      // Armazena os dados no localStorage
+     
       localStorage.setItem('collectionDate', collectionDate);
       localStorage.setItem('collectionTime', collectionTime);
       localStorage.setItem('address', address);
 
-      // Redireciona para a página de Coleta Agendada
-      window.location.href = 'coleta-agendada.html'; // Página de Coleta Agendada
+      
+      window.location.href = 'coleta-agendada.html'; 
     });
   </script>
 
