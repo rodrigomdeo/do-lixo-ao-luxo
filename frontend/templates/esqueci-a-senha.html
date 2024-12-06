@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Esqueci a Senha - Sistema de Gerenciamento</title>
   <style>
-    /* Estilo para a página de esqueci a senha */
+    
     .bg-gradient-custom {
       background-image: linear-gradient(to bottom left, #9613c1, #d37af0, #753789);
       min-height: 100vh;
@@ -150,14 +150,14 @@
       color: #d37af0;
     }
 
-    /* Ajuste para aumentar e centralizar o box branco */
+  
     .form-container {
-      width: 80%; /* Aumenta ainda mais a largura do box */
-      max-width: 500px; /* Limita a largura máxima */
-      margin: 0 auto; /* Centraliza horizontalmente */
+      width: 80%; 
+      max-width: 500px;
+      margin: 0 auto; 
     }
 
-    /* Centraliza o título */
+ 
     .form-container h2 {
       text-align: center;
     }
@@ -172,7 +172,7 @@
           <img src="https://cdn.shopify.com/s/files/1/0650/6561/5497/files/reciclar.png?v=1727622972" alt="Logo Reciclagem" class="rounded-full">
         </div>
         <div class="mb-6">
-          <h2 class="text-xl font-bold text-custom-purple">Redefinir Senha</h2> <!-- Título centralizado -->
+          <h2 class="text-xl font-bold text-custom-purple">Redefinir Senha</h2> 
         </div>
         <form id="forgot-password-form">
           <div class="mb-4">
@@ -214,14 +214,14 @@
       const novaSenha = document.getElementById('nova-senha').value;
       const confirmarSenha = document.getElementById('confirmar-senha').value;
 
-      // Verificando se as senhas coincidem
+     
       if (novaSenha !== confirmarSenha) {
         alert('As senhas não coincidem!');
         return;
       }
 
       try {
-        const response = await fetch('http://localhost:5000/api/usuarios/redefinir-senha', {  // Mudamos para Flask
+        const response = await fetch('http://localhost:5000/api/usuarios/redefinir-senha', { 
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, novaSenha }),
@@ -231,7 +231,7 @@
 
         if (response.ok) {
           alert('Senha redefinida com sucesso!');
-          window.location.href = 'login.html'; // Redireciona para login
+          window.location.href = 'login.html';
         } else {
           alert(data.error || 'Erro ao redefinir senha.');
         }
