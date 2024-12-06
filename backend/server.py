@@ -3,16 +3,16 @@ from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 
-# Inicialização da aplicação Flask
+
 app = Flask(__name__)
 CORS(app)
 
-# Configuração do banco de dados SQLite
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///residuos.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-# Modelo de Usuário
+
 class Usuario(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(50), nullable=False)
@@ -20,7 +20,7 @@ class Usuario(db.Model):
     senha = db.Column(db.String(100), nullable=False)
     grupo = db.Column(db.String(50), nullable=False)
 
-# Modelo de Resíduo com 'unidade' opcional
+
 class Residuo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(100), nullable=False)
@@ -29,7 +29,7 @@ class Residuo(db.Model):
     unidade = db.Column(db.String(20), nullable=True)  # Tornando 'unidade' opcional
     local_descart = db.Column(db.String(100), nullable=False)
 
-# Função para criar administradores fixos
+
 def create_admins():
     admins = [
         {"nome": "Rodrigo Mendes de Oliveira", "email": "rodrigowmendes18@gmail.com", "senha": "1234", "grupo": "administrador"},
@@ -45,7 +45,6 @@ def create_admins():
     
     db.session.commit()
 
-# Função para verificar se o usuário é administrador
 def is_admin_user(email):
     admin_emails = [
         "rodrigowmendes18@gmail.com",
@@ -54,7 +53,7 @@ def is_admin_user(email):
     ]
     return email in admin_emails
 
-# Rota de login
+
 @app.route('/api/login', methods=['POST'])
 def login():
     data = request.get_json()
@@ -70,7 +69,7 @@ def login():
     else:
         return jsonify({"message": "Credenciais inválidas!", "authenticated": False}), 401
 
-# Rota de cadastro de usuário
+
 @app.route('/api/usuarios/cadastro', methods=['POST'])
 def cadastro():
     data = request.get_json()
@@ -88,7 +87,7 @@ def cadastro():
     db.session.commit()
     return jsonify({"message": f"Usuário {nome} cadastrado com sucesso!"}), 200
 
-# Rota para redefinir a senha
+
 @app.route('/api/usuarios/redefinir-senha', methods=['POST'])
 def redefinir_senha():
     data = request.get_json()
@@ -103,7 +102,7 @@ def redefinir_senha():
     db.session.commit()
     return jsonify({"message": "Senha redefinida com sucesso!"}), 200
 
-# Rota para cadastrar um resíduo
+
 @app.route('/api/residuos/cadastrar', methods=['POST'])
 def cadastrar_residuo():
     data = request.get_json()
@@ -114,7 +113,7 @@ def cadastrar_residuo():
     unidade = data.get('unidade')  # Se não passar, 'unidade' pode ser None
     local_descart = data.get('local_descart')
 
-    # Verificação de campos obrigatórios
+    
     if not nome or not tipo or not peso or not local_descart:
         return jsonify({"message": "Campos obrigatórios estão faltando!"}), 400
 
@@ -128,7 +127,7 @@ def cadastrar_residuo():
 
     return jsonify({"message": "Resíduo cadastrado com sucesso!", "redirect": "/pagina-de-residuos"}), 200
 
-# Rota para listar todos os resíduos cadastrados
+
 @app.route('/api/residuos/listar', methods=['GET'])
 def listar_residuos():
     residuos = Residuo.query.all()
@@ -138,7 +137,7 @@ def listar_residuos():
     ]
     return jsonify({"residuos": residuos_list}), 200
 
-# Rota para obter os dados do usuário
+
 @app.route('/api/usuarios/<int:id>', methods=['GET'])
 def obter_usuario(id):
     usuario = Usuario.query.get(id)
@@ -151,7 +150,7 @@ def obter_usuario(id):
     else:
         return jsonify({"message": "Usuário não encontrado!"}), 404
 
-# Iniciar o servidor
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
