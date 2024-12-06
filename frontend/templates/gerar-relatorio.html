@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gerar Relatório</title>
   <style>
-    /* Corrige overflow horizontal globalmente */
+    
     * {
       margin: 0;
       padding: 0;
@@ -20,7 +20,7 @@
       justify-content: center;
       align-items: center;
       margin: 0;
-      overflow-x: hidden; /* Previne rolagem horizontal */
+      overflow-x: hidden; 
     }
 
     .container {
@@ -29,10 +29,10 @@
       border-radius: 12px;
       padding: 1.5rem;
       width: 100%;
-      max-width: 40rem; /* Limita a largura máxima do contêiner */
+      max-width: 40rem; 
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       overflow-y: auto;
-      box-sizing: border-box; /* Garante que o padding não ultrapasse a largura definida */
+      box-sizing: border-box; 
     }
 
     .container h1 {
@@ -61,8 +61,8 @@
     .container button {
       cursor: pointer;
       transition: background-color 0.3s;
-      font-size: 0.875rem; /* Fonte reduzida ainda mais */
-      font-weight: bold; /* Texto em negrito */
+      font-size: 0.875rem; 
+      font-weight: bold;
     }
 
     .radio-group {
@@ -99,48 +99,48 @@
       height: auto;
     }
 
-    /* Flexbox para alinhar os botões lado a lado */
+   
     .button-container {
       display: flex;
       justify-content: space-between;
     }
 
     .button-container div {
-      width: 48%; /* Ajusta para garantir que cada botão tenha 48% da largura */
+      width: 48%; 
     }
 
     .button-container button {
-      width: 100%; /* Faz com que cada botão ocupe 100% da largura do seu container */
+      width: 100%; 
       padding: 0.75rem;
     }
 
-    /* Estilos diferentes para cada botão */
+   
     .button-back {
-      background-color: #4CAF50; /* Verde */
+      background-color: #4CAF50;
       color: white;
     }
 
     .button-back:hover {
-      background-color: #45a049; /* Verde escuro */
+      background-color: #45a049; 
     }
 
     .button-export {
-      background-color: #9613c1; /* Roxo */
+      background-color: #9613c1;
       color: white;
     }
 
     .button-export:hover {
-      background-color: #7a0f9a; /* Roxo escuro */
+      background-color: #7a0f9a; 
     }
 
-    /* Impede rolagem horizontal dentro de qualquer elemento específico */
+   
     .container, .grid-container {
       overflow-x: hidden;
     }
 
-    /* Adiciona margem inferior ao campo de Tipo de Arquivo */
+   
     .container > div:nth-of-type(3) {
-      margin-bottom: 1rem; /* Ajuste o valor conforme necessário */
+      margin-bottom: 1rem;
     }
   </style>
 </head>
@@ -202,7 +202,7 @@
       </div>
     </div>
 
-    <!-- Filtros avançados - agora acima do botão de exportar -->
+ 
     <div>
       <h2>Filtros Avançados</h2>
       <div class="grid-container">
@@ -217,7 +217,7 @@
       </div>
     </div>
 
-    <!-- Botões lado a lado, com cada um dentro de seu container -->
+    
     <div class="button-container">
       <div>
         <button class="button-back" onclick="window.history.back()">Voltar</button>
@@ -227,7 +227,7 @@
       </div>
     </div>
 
-    <!-- Visualização de Dados removida conforme solicitado -->
+  
     <div class="visualization" style="display: none;">
       <h2>Visualização de Dados</h2>
       <p>Os dados do relatório serão exibidos aqui.</p>
