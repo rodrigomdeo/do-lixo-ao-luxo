@@ -92,7 +92,7 @@
 
     .grid-container {
       display: grid;
-      grid-template-columns: 1fr 1fr; /* 2 colunas para os gráficos de cima */
+      grid-template-columns: 1fr 1fr;
       gap: 20px;
       margin-top: 20px;
     }
@@ -103,14 +103,14 @@
 
     .grid-bottom-container {
       display: flex;
-      justify-content: center; /* Centraliza o gráfico de baixo */
+      justify-content: center; 
       margin-top: 20px;
     }
 
     @media (max-width: 768px) {
-      /* Responsividade para telas pequenas */
+    
       .grid-container {
-        grid-template-columns: 1fr; /* Uma coluna para telas pequenas */
+        grid-template-columns: 1fr; 
       }
     }
   </style>
@@ -160,7 +160,6 @@
         </div>
       </div>
 
-      <!-- Gráfico de baixo centralizado -->
       <div class="grid-bottom-container">
         <div class="single-graph-container">
           <h3 class="text-custom-purple">Comparação de Tipos de Resíduos</h3>
@@ -174,28 +173,28 @@
 </div>
 
 <script>
-  // Função de logout
+ 
   function logout() {
     localStorage.removeItem('isAuthenticated');
     window.location.href = 'login.html';
   }
 
-   // Função para buscar dados de resíduos
+   
   async function fetchResiduos() {
     const response = await fetch('http://localhost:5000/api/residuos/listar');
     const data = await response.json();
     const residuos = data.residuos;
 
-    // Gráfico de Pizza: Tipos de resíduos
+    
     const tipos = [];
     const quantidades = [];
     residuos.forEach(residuo => {
       if (!tipos.includes(residuo.tipo)) {
         tipos.push(residuo.tipo);
-        quantidades.push(1); // Conta o número de resíduos do mesmo tipo
+        quantidades.push(1); 
       } else {
         const index = tipos.indexOf(residuo.tipo);
-        quantidades[index] += 1; // Incrementa a quantidade de resíduos desse tipo
+        quantidades[index] += 1; 
       }
     });
 
@@ -214,22 +213,22 @@
       }
     });
 
-    // Gráfico de Barras: Geração Mensal Acumulada
+   
     const meses = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
-    const geracaoMensal = new Array(12).fill(0); // Para todos os 12 meses
+    const geracaoMensal = new Array(12).fill(0); 
 
-    // Contabilizando a quantidade de resíduos por mês
+    
     residuos.forEach(residuo => {
-      const mesIndex = new Date(residuo.data).getMonth(); // Pega o mês a partir da data do resíduo
-      geracaoMensal[mesIndex] += 1; // Incrementa a quantidade de resíduos no mês correspondente
+      const mesIndex = new Date(residuo.data).getMonth(); 
+      geracaoMensal[mesIndex] += 1; 
     });
 
-    // Calculando o acumulado
+    
     const geracaoAcumulada = [];
     let acumulado = 0;
     geracaoMensal.forEach(residuo => {
-      acumulado += residuo; // Soma os resíduos até o mês atual
-      geracaoAcumulada.push(acumulado); // Adiciona ao array de valores acumulados
+      acumulado += residuo; 
+      geracaoAcumulada.push(acumulado); 
     });
 
     const ctxBarra = document.getElementById('graficoBarra').getContext('2d');
@@ -257,7 +256,7 @@
       }
     });
 
-    // Gráfico de Barras: Comparação de Tipos de Resíduos - PESO
+   
     const tiposBarras = [];
     const pesosBarras = [];
     residuos.forEach(residuo => {
@@ -293,7 +292,6 @@
     });
   }
 
-  // Chama a função para pegar os dados
   fetchResiduos();
 </script>
 
