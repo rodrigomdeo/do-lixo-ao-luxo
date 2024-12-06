@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cadastro - Sistema de Gerenciamento</title>
   <style>
-    /* Estilo para a página de cadastro */
+   
     .bg-gradient-custom {
       background-image: linear-gradient(to bottom left, #9613c1, #d37af0, #753789);
     }
@@ -117,14 +117,13 @@
       color: #d37af0;
     }
 
-    /* Ajuste para aumentar e centralizar o box branco */
     .form-container {
-      width: 80%; /* Aumenta ainda mais a largura do box */
-      max-width: 500px; /* Limita a largura máxima */
-      margin: 0 auto; /* Centraliza horizontalmente */
+      width: 80%; 
+      max-width: 500px; 
+      margin: 0 auto; 
     }
 
-    /* Centraliza o título */
+
     .form-container h2 {
       text-align: center;
     }
@@ -133,13 +132,13 @@
 <body class="bg-gradient-custom">
 
   <div class="min-h-screen flex flex-col items-center justify-center bg-gradient-custom">
-    <div class="form-container"> <!-- Novo container com a classe form-container -->
+    <div class="form-container"> 
       <div class="bg-white bg-opacity-50 shadow-md rounded-lg px-8 pt-6 pb-8 mb-4">
         <div class="mb-4 flex justify-center">
           <img src="https://cdn.shopify.com/s/files/1/0650/6561/5497/files/reciclar.png?v=1727622972" alt="Logo Reciclagem" class="rounded-full">
         </div>
         <div class="mb-6">
-          <h2 class="text-xl font-bold text-custom-purple">Cadastro de Usuário</h2> <!-- Título centralizado -->
+          <h2 class="text-xl font-bold text-custom-purple">Cadastro de Usuário</h2> 
         </div>
         <form id="register-form">
           <div class="mb-4">
@@ -191,7 +190,7 @@
       const grupo = document.getElementById('grupo').value;
 
       try {
-        const response = await fetch('http://localhost:5000/api/usuarios/cadastro', {  // Mudamos para Flask
+        const response = await fetch('http://localhost:5000/api/usuarios/cadastro', {  
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ nome, email, senha, grupo }),
@@ -201,7 +200,7 @@
 
         if (response.ok) {
           alert('Usuário cadastrado com sucesso!');
-          window.location.href = 'login.html'; // Redireciona para login
+          window.location.href = 'login.html'; 
         } else {
           alert(data.error || 'Erro ao cadastrar.');
         }
