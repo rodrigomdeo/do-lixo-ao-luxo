@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Sistema de Gerenciamento</title>
+  <style>
+    /* Estilo para a página de login */
+    .bg-gradient-custom {
+      background-image: linear-gradient(to bottom left, #9613c1, #d37af0, #753789);
+      min-height: 100vh;
+    }
+
+    .text-custom-purple {
+      color: #9613c1;
+    }
+
+    .bg-custom-purple {
+      background-color: #9613c1;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .min-h-screen {
+      min-height: 100vh;
+    }
+
+    .flex {
+      display: flex;
+    }
+
+    .flex-col {
+      flex-direction: column;
+    }
+
+    .items-center {
+      align-items: center;
+    }
+
+    .justify-center {
+      justify-content: center;
+    }
+
+    .bg-white {
+      background-color: white;
+    }
+
+    .bg-opacity-50 {
+      background-opacity: 0.5;
+    }
+
+    .shadow-md {
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .rounded-lg {
+      border-radius: 8px;
+    }
+
+    .px-8 {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+
+    .pt-6 {
+      padding-top: 1.5rem;
+    }
+
+    .pb-8 {
+      padding-bottom: 2rem;
+    }
+
+    .mb-4 {
+      margin-bottom: 1rem;
+    }
+
+    .mb-6 {
+      margin-bottom: 1.5rem;
+    }
+
+    .text-xl {
+      font-size: 1.25rem;
+    }
+
+    .font-bold {
+      font-weight: 700;
+    }
+
+    .text-gray-700 {
+      color: #4a4a4a;
+    }
+
+    .text-sm {
+      font-size: 0.875rem;
+    }
+
+    .leading-tight {
+      line-height: 1.25;
+    }
+
+    .focus\:outline-none:focus {
+      outline: none;
+    }
+
+    .focus\:shadow-outline:focus {
+      box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.5);
+    }
+
+    .shadow {
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      margin: 15px 0;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #9613c1;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #7a0f9e;
+    }
+
+    a {
+      display: block;
+      margin-top: 15px;
+      text-align: center;
+      color: #fff;
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #d37af0;
+    }
+
+    .title-center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body class="bg-gradient-custom">
+
+  <div class="min-h-screen flex flex-col items-center justify-center bg-gradient-custom">
+    <div class="w-full max-w-md">
+      <div class="bg-white bg-opacity-50 shadow-md rounded-lg px-8 pt-6 pb-8 mb-4">
+        <div class="mb-4 flex justify-center">
+          <img src="https://cdn.shopify.com/s/files/1/0650/6561/5497/files/reciclar.png?v=1727622972" alt="Logo Reciclagem" class="rounded-full">
+        </div>
+        <div class="title-center">
+          <h2 class="text-xl font-bold text-custom-purple">Do Lixo ao Luxo</h2>
+        </div>
+        <form id="login-form">
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+              E-mail
+            </label>
+            <input class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Digite seu e-mail" required>
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+              Senha
+            </label>
+            <input class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="Digite sua senha" required>
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="grupo">
+              Grupo
+            </label>
+            <select class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="grupo">
+              <option value="gestor">Gerador de Resíduos</option>              
+              <option value="administrador">Administrador</option>
+            </select>
+          </div>
+          <div class="flex items-center justify-between">
+            <button class="bg-custom-purple hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline" type="submit">
+              Entrar
+            </button>
+            <a class="inline-block align-baseline text-sm text-custom-purple hover:text-purple-800" href="esqueci-a-senha.html">
+              Esqueceu a senha?
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+    <a class="inline-block align-baseline font-bold text-sm text-custom-purple hover:text-purple-800" href="cadastro.html" style="color: white;">
+      Novo Usuário (Gerador de Resíduos)
+    </a>
+  </div>
+
+  <script>
+    document.getElementById('login-form').addEventListener('submit', async function(event) {
+      event.preventDefault();
+      
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const grupo = document.getElementById('grupo').value;
+
+      // Fazendo a requisição POST para o backend Flask
+      const response = await fetch('http://localhost:5000/api/login', {  
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password, grupo })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Salvando no localStorage e redirecionando para o menu principal
+        localStorage.setItem('isAuthenticated', 'true');
+        alert(data.message);
+        window.location.href = 'index.html';  // Redireciona para o menu principal
+      } else {
+        alert(data.message);
+      }
+    });
+  </script>
+
+</body>
+</html>
