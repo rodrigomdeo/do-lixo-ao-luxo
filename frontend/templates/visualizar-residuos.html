@@ -97,7 +97,6 @@
         </tr>
       </thead>
       <tbody>
-        <!-- Resíduos cadastrados serão listados aqui -->
       </tbody>
     </table>
 
@@ -105,7 +104,6 @@
   </div>
 
   <script>
-    // Função para buscar os resíduos cadastrados
     async function fetchResiduos() {
       const response = await fetch('http://localhost:5000/api/residuos/cadastrar', { 
         method: 'GET'
@@ -113,7 +111,7 @@
 
       const data = await response.json();
       const tableBody = document.querySelector('#residueTable tbody');
-      tableBody.innerHTML = ''; // Limpar a tabela
+      tableBody.innerHTML = '';
 
       data.residuos.forEach(residuo => {
         const row = document.createElement('tr');
@@ -128,14 +126,12 @@
       });
     }
 
-    // Mostrar a mensagem de sucesso após salvar o resíduo
     const messageElement = document.getElementById('message');
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('success') === 'true') {
       messageElement.textContent = 'Resíduo cadastrado com sucesso!';
     }
 
-    // Chama a função para buscar os resíduos cadastrados ao carregar a página
     fetchResiduos();
   </script>
 
