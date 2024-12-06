@@ -90,7 +90,7 @@
     <div class="info">
       <h2 class="text-xl font-semibold text-gray-800">Detalhes da Coleta</h2>
       
-      <!-- Exibição dinâmica dos dados armazenados -->
+     
       <p><strong>Data de Coleta:</strong> <span id="dataColeta"></span></p>
       <p><strong>Hora de Coleta:</strong> <span id="horaColeta"></span></p>
       <p><strong>Endereço:</strong> <span id="enderecoColeta"></span></p>
@@ -100,7 +100,7 @@
   </div>
 
   <script>
-    // Recupera os dados do localStorage e preenche na página
+    
     document.getElementById('dataColeta').textContent = localStorage.getItem('collectionDate');
     document.getElementById('horaColeta').textContent = localStorage.getItem('collectionTime');
     document.getElementById('enderecoColeta').textContent = localStorage.getItem('address');
