@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gestão de Coleta</title>
   <style>
-    /* Estilos para a interface de cadastro */
+    
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -23,7 +23,7 @@
       padding: 2rem;
       width: 30rem;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      text-align: center; /* Adicionando alinhamento centralizado para o conteúdo */
+      text-align: center; 
     }
 
     .container h1 {
@@ -37,9 +37,9 @@
       width: 80px;
       height: 80px;
       margin-bottom: 1rem;
-      display: block; /* Garante que a imagem seja tratada como um bloco */
+      display: block; 
       margin-left: auto;
-      margin-right: auto; /* Centraliza a imagem horizontalmente */
+      margin-right: auto;
     }
 
     .container label {
@@ -160,8 +160,8 @@
 
       const data = await response.json();
       if (response.ok) {
-        alert(data.message); // Exibe uma mensagem de sucesso
-        window.location.href = 'index.html';  // Redireciona para a página de sucesso
+        alert(data.message); 
+        window.location.href = 'index.html';  
       } else {
         alert('Erro ao salvar resíduo');
       }
