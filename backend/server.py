@@ -110,14 +110,14 @@ def cadastrar_residuo():
     nome = data.get('nome')
     tipo = data.get('tipo')
     peso = data.get('peso')
-    unidade = data.get('unidade')  # Se não passar, 'unidade' pode ser None
+    unidade = data.get('unidade')  
     local_descart = data.get('local_descart')
 
     
     if not nome or not tipo or not peso or not local_descart:
         return jsonify({"message": "Campos obrigatórios estão faltando!"}), 400
 
-    # Se 'unidade' não for fornecido, podemos definir como 'não especificado'
+   
     if unidade is None:
         unidade = 'não especificado'
 
